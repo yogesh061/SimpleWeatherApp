@@ -106,15 +106,15 @@
 
 	var _bootstrap2 = _interopRequireDefault(_bootstrap);
 
-	var _app = __webpack_require__(20);
+	var _app = __webpack_require__(18);
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _SearchWeather = __webpack_require__(18);
+	var _SearchWeather = __webpack_require__(20);
 
 	var _SearchWeather2 = _interopRequireDefault(_SearchWeather);
 
-	var _WeatherInfoForDay = __webpack_require__(19);
+	var _WeatherInfoForDay = __webpack_require__(21);
 
 	var _WeatherInfoForDay2 = _interopRequireDefault(_WeatherInfoForDay);
 
@@ -587,6 +587,46 @@
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(19);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(17)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../node_modules/css-loader/index.js!./app.css", function() {
+				var newContent = require("!!../../node_modules/css-loader/index.js!./app.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(11)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".heading-date {\n  border-bottom: 1px solid #ddd;\n  padding: 2px;\n}\n\n.list-row{\n    border-bottom: 1px solid #ddd;\n}\n.list-items{\n  padding: 2px;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
@@ -673,7 +713,7 @@
 	exports.default = SearchWeather;
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -794,46 +834,6 @@
 	}();
 
 	exports.default = WeatherInfoForDay;
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(21);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(17)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../node_modules/css-loader/index.js!./app.css", function() {
-				var newContent = require("!!../../node_modules/css-loader/index.js!./app.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(11)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".heading-date {\n  border-bottom: 1px solid #ddd;\n  padding: 2px;\n}\n\n.list-row{\n    border-bottom: 1px solid #ddd;\n}\n.list-items{\n  padding: 2px;\n}\n", ""]);
-
-	// exports
-
 
 /***/ }
 /******/ ]);
