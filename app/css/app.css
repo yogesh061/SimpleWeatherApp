@@ -1,0 +1,11 @@
+.heading-date {
+  border-bottom: 1px solid #ddd;
+  padding: 2px;
+}
+
+.list-row{
+    border-bottom: 1px solid #ddd;
+}
+.list-items{
+  padding: 2px;
+}

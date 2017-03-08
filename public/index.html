@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <div class="container">
+      <div class="jumbotron clearfix">
+        <h1>Weather forecast</h1>
+        <p class="lead">Enter the name of City below for it's forecast</p>
+        <form class = "text-center">
+          <div class = "form-group">
+            <input class = "form-control input-lg" placeholder="City" id = "cityName"/>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" id = "getWeather" data-loading-text="Loading...">Get Weather</button>
+        </form>
+      </div>
+      <div id = "weatherInfo">
+      </div>
+
+  <!--<div class = "container">
+      <h1 class="text-center">Weather Forecast</h1>
+      <div class = "row">
+        <div class = "col-md-8 col-md-offset-4">
+          <form class = "form-inline">
+            <div class="form-group">
+              <label for = "cityName">Find Weather</label>
+              <input id = "cityName" type="text" class="form-control" placeholder="City">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div>
+        <table class="table">
+          <tr>
+            <th>
+              Date
+            </th>
+            <th>
+              Temperature
+            </th>
+          </tr>
+        </table>
+      </div>
+    </div>-->
+
+  <script src="bundle.js"></script>
+</body>
+</html>
