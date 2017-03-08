@@ -16,9 +16,9 @@ To run this application once the package is downloaded follow steps below -
     ```
 3. Open the web browser and navigate to URL [http://localhost:3000/](http://localhost:3000/)
 
-## Application Hosting
+## Hosting
 
-The application is hosted at [http://calm-dawn-27441.herokuapp.com/](http://calm-dawn-27441.herokuapp.com/)
+Application is hosted at [http://calm-dawn-27441.herokuapp.com/](http://calm-dawn-27441.herokuapp.com/)
 
 ## Technical Details
 1. This application is developed using jQuery and Bootstrap.
@@ -39,4 +39,4 @@ The application is hosted at [http://calm-dawn-27441.herokuapp.com/](http://calm
 5. Add a provision to toggle between Metric and Kelvin scale.
 6. Add geo location API support to get the weather information of current city/place.
 7. Multi-Language support
-8. Pass the city/place name as a query string so that this application can be integrated with other system.
+8. Pass city/place name as a query string so that this application can be integrated with other system.
