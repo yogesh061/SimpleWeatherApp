@@ -15,3 +15,9 @@ In order to run this application once the package is downloaded follow steps bel
     node server
     ```
 3. Open the web browser and navigate to URL [http://localhost:3000/](http://localhost:3000/)
+
+## Application Hosting
+
+The application is hosted at
+
+## Future Enhancements 
