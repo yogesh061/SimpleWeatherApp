@@ -11,7 +11,7 @@ In order to run this application once the package is downloaded follow steps bel
   npm install
   ```
 2. Once this process is completed, again in the terminal window run the below command. This will start the server.  
-```bash
-node server
-```
-3. Open the web browser and navigate to URL http://localhost:3000/
+  ```bash
+  node server
+  ```
+3. Open the web browser and navigate to URL [http://localhost:3000/](http://localhost:3000/)
