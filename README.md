@@ -39,3 +39,4 @@ The application is hosted at [http://calm-dawn-27441.herokuapp.com/](http://calm
 5. Add a provision to toggle between Metric and Kelvin scale.
 6. Add geo location API support to get the weather information of current city/place.
 7. Multi-Language support
+8. Pass the city/place name as a query string so that this application can be integrated with other system.
