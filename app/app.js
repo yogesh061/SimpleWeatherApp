@@ -7,10 +7,11 @@ import WeatherInfoForDay from 'WeatherInfoForDay.js'
 
 class App {
   constructor(){
+    let weatherComponentName  = 'weatherInfo';
     this.searchWeather = new SearchWeather((e)=>{
       this.onSearchWeatherResponse(e)
     });
-    this.weatherInfo = new WeatherInfoForDay();
+    this.weatherInfo = new WeatherInfoForDay(weatherComponentName);
   }
 
   onSearchWeatherResponse(cityName){
@@ -34,31 +35,8 @@ class App {
     alert("Cannot find the city, please try again!");
   }
 }
+
 $(function(){
+  //initialize the app once jqery onload event is triggered to ensure that DOM elements are loaded
   let app = new App();
 })
-
-/*let onSearchWeather = function(cityName){
-  searchWeather.startLoading();
-  getFiveDaysWeatherOfCity(cityName).then(function(e){
-    searchWeather.stopLoading();
-    let weatherInfo  = new WeatherInfoForDay(e);
-    let renderedData = weatherInfo.render();
-    $("#weatherInfo").html(renderedData);
-  }).catch(function(){
-    searchWeather.stopLoading();
-  })
-}
-const searchWeather = new SearchWeather(onSearchWeather);
-*/
-//let weatherInfo  = new WeatherInfoForDay({test:"test"});
-//let renderedData = weatherInfo.render();
-//console.log($("#weatherInfo"));
-//$("#weatherInfo").html(renderedData);
-/*
-getFiveDaysWeatherOfCity('Pune').then(function(e){
-  alert('got results');
-}).catch(function(){
-  alert('error');
-})
-*/

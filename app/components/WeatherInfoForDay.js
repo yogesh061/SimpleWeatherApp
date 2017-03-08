@@ -1,11 +1,23 @@
 import $ from "jquery";
 
+/**
+* This class is used to render the data once its retrived using Open Weather
+* API.
+* It accepts the json object process the data and render it to a component
+*/
 class WeatherInfoForDay {
-
-  constructor(){
-    this.weatherInfoRef = $("#weatherInfo");
+  /**
+  * constructor, which accepts id of component in which data has to be
+  * rendered
+  */
+  constructor(componentId){
+    this.weatherInfoRef = $(`#${componentId}`);
   }
 
+  /**
+  * This function renders the data into component
+  * It accepts json data received from Open Weather API
+  */
   render(jsonData){
     this.data = jsonData;
     let processedData = this._processData();
@@ -21,10 +33,16 @@ class WeatherInfoForDay {
     this.weatherInfoRef.html(renderedData);
   }
 
+  /**
+  * Used to clear the component in case if there is no data or service error
+  */
   clear(){
     this.weatherInfoRef.html('');
   }
 
+  /**
+  * Function used to render data of each day
+  */
   _renderEachDay(dayObject){
     let selectedDate  = dayObject.date;
     let timeStr = ``;
@@ -68,6 +86,11 @@ class WeatherInfoForDay {
     return dayStr;
   }
 
+
+  /**
+  * Function used to process the data received in API response
+  * This function returns Map of array containig data for each day
+  */
   _processData(){
     let processedData = {};
     if(this.data.list){

@@ -128,10 +128,11 @@
 
 	    _classCallCheck(this, App);
 
+	    var weatherComponentName = 'weatherInfo';
 	    this.searchWeather = new _SearchWeather2.default(function (e) {
 	      _this.onSearchWeatherResponse(e);
 	    });
-	    this.weatherInfo = new _WeatherInfoForDay2.default();
+	    this.weatherInfo = new _WeatherInfoForDay2.default(weatherComponentName);
 	  }
 
 	  _createClass(App, [{
@@ -165,33 +166,9 @@
 	}();
 
 	(0, _jquery2.default)(function () {
+	  //initialize the app once jqery onload event is triggered to ensure that DOM elements are loaded
 	  var app = new App();
 	});
-
-	/*let onSearchWeather = function(cityName){
-	  searchWeather.startLoading();
-	  getFiveDaysWeatherOfCity(cityName).then(function(e){
-	    searchWeather.stopLoading();
-	    let weatherInfo  = new WeatherInfoForDay(e);
-	    let renderedData = weatherInfo.render();
-	    $("#weatherInfo").html(renderedData);
-	  }).catch(function(){
-	    searchWeather.stopLoading();
-	  })
-	}
-	const searchWeather = new SearchWeather(onSearchWeather);
-	*/
-	//let weatherInfo  = new WeatherInfoForDay({test:"test"});
-	//let renderedData = weatherInfo.render();
-	//console.log($("#weatherInfo"));
-	//$("#weatherInfo").html(renderedData);
-	/*
-	getFiveDaysWeatherOfCity('Pune').then(function(e){
-	  alert('got results');
-	}).catch(function(){
-	  alert('error');
-	})
-	*/
 
 /***/ },
 /* 7 */
@@ -626,24 +603,39 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+	/**
+	* This class is used to handel the textfield and button on the main UI
+	* While initializing this class, it expects a callback function which gets called
+	* if user has entered any value in the City field
+	*/
 	var SearchWeather = function () {
 	  function SearchWeather(callback) {
 	    var _this = this;
 
 	    _classCallCheck(this, SearchWeather);
 
+	    //initialize
 	    this.isLoading = false;
+	    //get the field references
 	    this.cityInputRef = (0, _jquery2.default)("#cityName");
 	    this.getWeatherBtnRef = (0, _jquery2.default)("#getWeather");
+	    //add click event
 	    this.getWeatherBtnRef.on('click', function (eve) {
 	      eve.preventDefault();
 	      var cityValue = _this.cityInputRef.val();
 	      cityValue = cityValue.trim();
+	      //trigger callback if user has entered the data in field
+	      //and if the current state is not loading
 	      if (cityValue.length > 0 && !_this.isLoading) {
 	        callback(cityValue);
 	      }
 	    });
 	  }
+
+	  /**
+	  * Use to update the UI and state when the data is fetched from server.
+	  */
+
 
 	  _createClass(SearchWeather, [{
 	    key: "startLoading",
@@ -651,12 +643,22 @@
 	      this.isLoading = true;
 	      this.getWeatherBtnRef.button('loading');
 	    }
+
+	    /**
+	    * Use to update the UI and state when the data fetch is completed.
+	    */
+
 	  }, {
 	    key: "stopLoading",
 	    value: function stopLoading() {
 	      this.isLoading = false;
 	      this.getWeatherBtnRef.button('reset');
 	    }
+
+	    /**
+	    * Reset UI once the search is completed
+	    */
+
 	  }, {
 	    key: "reset",
 	    value: function reset() {
@@ -674,7 +676,7 @@
 /* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -690,49 +692,80 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+	/**
+	* This class is used to render the data once its retrived using Open Weather
+	* API.
+	* It accepts the json object process the data and render it to a component
+	*/
 	var WeatherInfoForDay = function () {
-	  function WeatherInfoForDay() {
+	  /**
+	  * constructor, which accepts id of component in which data has to be
+	  * rendered
+	  */
+	  function WeatherInfoForDay(componentId) {
 	    _classCallCheck(this, WeatherInfoForDay);
 
-	    this.weatherInfoRef = (0, _jquery2.default)("#weatherInfo");
+	    this.weatherInfoRef = (0, _jquery2.default)('#' + componentId);
 	  }
 
+	  /**
+	  * This function renders the data into component
+	  * It accepts json data received from Open Weather API
+	  */
+
+
 	  _createClass(WeatherInfoForDay, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render(jsonData) {
 	      this.data = jsonData;
 	      var processedData = this._processData();
-	      var renderedData = "<div class=\"row\">\n                        <div class=\"col-lg-12\">\n                          <h3>Weather forecast for " + this.data.city.name + "</h3>\n                        </div>\n                        </div>";
+	      var renderedData = '<div class="row">\n                        <div class="col-lg-12">\n                          <h3>Weather forecast for ' + this.data.city.name + '</h3>\n                        </div>\n                        </div>';
 	      for (var dayData in processedData) {
-	        renderedData = renderedData + "\n                      " + this._renderEachDay(processedData[dayData]);
+	        renderedData = renderedData + '\n                      ' + this._renderEachDay(processedData[dayData]);
 	      }
 	      this.weatherInfoRef.html(renderedData);
 	    }
+
+	    /**
+	    * Used to clear the component in case if there is no data or service error
+	    */
+
 	  }, {
-	    key: "clear",
+	    key: 'clear',
 	    value: function clear() {
 	      this.weatherInfoRef.html('');
 	    }
+
+	    /**
+	    * Function used to render data of each day
+	    */
+
 	  }, {
-	    key: "_renderEachDay",
+	    key: '_renderEachDay',
 	    value: function _renderEachDay(dayObject) {
 	      var selectedDate = dayObject.date;
-	      var timeStr = "";
-	      var minTempStr = "";
-	      var maxTempStr = "";
-	      var conditionStr = "";
+	      var timeStr = '';
+	      var minTempStr = '';
+	      var maxTempStr = '';
+	      var conditionStr = '';
 	      var iconUrl = 'http://openweathermap.org/img/w/';
 	      dayObject.weatherInfo.forEach(function (info) {
-	        timeStr = timeStr + "<div class=\"col-xs-1 text-center list-items\">" + info.time + "</div>";
-	        minTempStr = minTempStr + "<div class=\"col-xs-1 text-center list-items\">" + info.main.temp_min + " \xB0C</div>";
-	        maxTempStr = maxTempStr + "<div class=\"col-xs-1 text-center list-items\">" + info.main.temp_max + " \xB0C</div>";
-	        conditionStr = conditionStr + "\n                          <div class=\"col-xs-1 text-center list-items\">\n                          " + info.weather[0].main + "\n                          <img src = \"" + iconUrl + info.weather[0].icon + ".png\"/>\n                          </div>";
+	        timeStr = timeStr + '<div class="col-xs-1 text-center list-items">' + info.time + '</div>';
+	        minTempStr = minTempStr + '<div class="col-xs-1 text-center list-items">' + info.main.temp_min + ' \xB0C</div>';
+	        maxTempStr = maxTempStr + '<div class="col-xs-1 text-center list-items">' + info.main.temp_max + ' \xB0C</div>';
+	        conditionStr = conditionStr + '\n                          <div class="col-xs-1 text-center list-items">\n                          ' + info.weather[0].main + '\n                          <img src = "' + iconUrl + info.weather[0].icon + '.png"/>\n                          </div>';
 	      });
-	      var dayStr = "<div class=\"row\">\n                    <div class=\"col-lg-12\">\n                      <div class=\"row\">\n                        <h4 class = \"heading-date\">" + selectedDate + "</h4>\n                      </div>\n                      <div class=\"row list-row\">\n                        <div class=\"col-xs-2 list-items\"><strong>Time</strong></div>\n                        " + timeStr + "\n                      </div>\n                      <div class=\"row list-row\">\n                        <div class=\"col-xs-2 list-items\"><strong>Min Temperature</strong></div>\n                        " + minTempStr + "\n                      </div>\n                      <div class=\"row list-row\">\n                        <div class=\"col-xs-2 list-items\"><strong>Max Temperature</strong></div>\n                        " + maxTempStr + "\n                      </div>\n                      <div class=\"row list-row\">\n                        <div class=\"col-xs-2 list-items\"><strong>Condition</strong></div>\n                        " + conditionStr + "\n                      </div>\n                    </div>\n                  </div>";
+	      var dayStr = '<div class="row">\n                    <div class="col-lg-12">\n                      <div class="row">\n                        <h4 class = "heading-date">' + selectedDate + '</h4>\n                      </div>\n                      <div class="row list-row">\n                        <div class="col-xs-2 list-items"><strong>Time</strong></div>\n                        ' + timeStr + '\n                      </div>\n                      <div class="row list-row">\n                        <div class="col-xs-2 list-items"><strong>Min Temperature</strong></div>\n                        ' + minTempStr + '\n                      </div>\n                      <div class="row list-row">\n                        <div class="col-xs-2 list-items"><strong>Max Temperature</strong></div>\n                        ' + maxTempStr + '\n                      </div>\n                      <div class="row list-row">\n                        <div class="col-xs-2 list-items"><strong>Condition</strong></div>\n                        ' + conditionStr + '\n                      </div>\n                    </div>\n                  </div>';
 	      return dayStr;
 	    }
+
+	    /**
+	    * Function used to process the data received in API response
+	    * This function returns Map of array containig data for each day
+	    */
+
 	  }, {
-	    key: "_processData",
+	    key: '_processData',
 	    value: function _processData() {
 	      var processedData = {};
 	      if (this.data.list) {
